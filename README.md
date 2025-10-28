@@ -83,8 +83,16 @@ No installation required! Configure directly in your MCP client:
 }
 ```
 
-**Claude Code** (`.claude/mcp.json` in your project):
+**Claude Code**:
 
+Using the Claude Code CLI (recommended):
+```bash
+claude mcp add garmin-connect npx garmin-connect-mcp \
+  --env GARMIN_USERNAME=your_username \
+  --env GARMIN_PASSWORD=your_password
+```
+
+Or manually configure (`.claude/mcp.json` in your project):
 ```json
 {
   "mcpServers": {
