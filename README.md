@@ -62,7 +62,74 @@ This MCP server connects your AI assistant (Claude Desktop, Claude Code, or any 
 
 ### Installation
 
-1. Clone and build the server:
+#### Option 1: Use with npx (Recommended)
+
+No installation required! Configure directly in your MCP client:
+
+**Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS or `%APPDATA%\Claude\claude_desktop_config.json` on Windows):
+
+```json
+{
+  "mcpServers": {
+    "garmin-connect": {
+      "command": "npx",
+      "args": ["-y", "garmin-connect-mcp"],
+      "env": {
+        "GARMIN_USERNAME": "your_username",
+        "GARMIN_PASSWORD": "your_password"
+      }
+    }
+  }
+}
+```
+
+**Claude Code** (`.claude/mcp.json` in your project):
+
+```json
+{
+  "mcpServers": {
+    "garmin-connect": {
+      "command": "npx",
+      "args": ["-y", "garmin-connect-mcp"],
+      "env": {
+        "GARMIN_USERNAME": "your_username",
+        "GARMIN_PASSWORD": "your_password"
+      }
+    }
+  }
+}
+```
+
+The `-y` flag automatically accepts the npx prompt, ensuring smooth startup.
+
+#### Option 2: Global Installation
+
+Install globally via npm:
+
+```bash
+npm install -g garmin-connect-mcp
+```
+
+Then configure without npx:
+
+```json
+{
+  "mcpServers": {
+    "garmin-connect": {
+      "command": "garmin-connect-mcp",
+      "env": {
+        "GARMIN_USERNAME": "your_username",
+        "GARMIN_PASSWORD": "your_password"
+      }
+    }
+  }
+}
+```
+
+#### Option 3: Local Development
+
+For development or testing local changes:
+
 ```bash
 git clone <repository-url>
 cd garmin-connect-mcp
@@ -70,20 +137,7 @@ pnpm install
 pnpm build
 ```
 
-2. Create a `.env` file with your Garmin Connect credentials:
-```bash
-cp .env.example .env
-# Edit .env and add your credentials:
-# GARMIN_USERNAME=your_username
-# GARMIN_PASSWORD=your_password
-```
-
-### Configure with Claude Desktop
-
-Add to your Claude Desktop configuration file:
-
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+Configure with absolute path:
 
 ```json
 {
@@ -100,26 +154,7 @@ Add to your Claude Desktop configuration file:
 }
 ```
 
-### Configure with Claude Code
-
-Add to your project's `.claude/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "garmin-connect": {
-      "command": "node",
-      "args": ["/absolute/path/to/garmin-connect-mcp/dist/index.js"],
-      "env": {
-        "GARMIN_USERNAME": "your_username",
-        "GARMIN_PASSWORD": "your_password"
-      }
-    }
-  }
-}
-```
-
-Or reference a `.env` file:
+Or use a `.env` file:
 
 ```json
 {
